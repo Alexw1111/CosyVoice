@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+FROM dockerpull.org/nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
 ARG VENV_NAME="cosyvoice"
 ENV VENV=$VENV_NAME
@@ -34,7 +34,7 @@ RUN conda config --add channels conda-forge && \
 # ~conda
 # ==================================================================
 
-RUN conda create -y -n ${VENV} python=3.8
+RUN conda create -y -n ${VENV} python=3.10
 ENV CONDA_DEFAULT_ENV=${VENV}
 ENV PATH /opt/conda/bin:/opt/conda/envs/${VENV}/bin:$PATH
 
@@ -42,7 +42,7 @@ WORKDIR /workspace
 
 ENV PYTHONPATH="${PYTHONPATH}:/workspace/CosyVoice:/workspace/CosyVoice/third_party/Matcha-TTS"
 
-RUN git clone --recursive https://github.com/FunAudioLLM/CosyVoice.git
+RUN git clone --recursive https://kkgithub.com/FunAudioLLM/CosyVoice.git
 
 RUN conda activate ${VENV} && conda install -y -c conda-forge pynini==2.1.5
 RUN conda activate ${VENV} && cd CosyVoice && \

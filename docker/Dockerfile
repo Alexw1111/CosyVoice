@@ -26,6 +26,10 @@ RUN apt-get update -y --fix-missing && \
     apt-get clean && \
     git lfs install
 
+# 设置pip清华源
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/ && \
+    pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+
 WORKDIR /workspace
 
 ENV PYTHONPATH="${PYTHONPATH}:/workspace/CosyVoice:/workspace/CosyVoice/third_party/Matcha-TTS"
@@ -36,6 +40,4 @@ RUN git clone --recursive https://kkgithub.com/FunAudioLLM/CosyVoice.git
 # 安装项目依赖
 RUN pip install pynini==2.1.5 && \
     cd CosyVoice && \
-    pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com
-
-WORKDIR /workspace/CosyVoice
+    pip install -r requirements.txt

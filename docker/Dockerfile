@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEN=noninteractive
 ENV PYTHONUNBUFFERED=1
 SHELL ["/bin/bash", "--login", "-c"]
 
+# 设置apt清华源
+RUN sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+
 # 安装系统依赖和Python
 RUN apt-get update -y --fix-missing && \
     apt-get install -y \
